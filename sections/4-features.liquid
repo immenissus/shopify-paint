@@ -1,0 +1,154 @@
+{% schema %}
+{
+  "name": "4-Column Icon Grid",
+  "tag": "section",
+  "class": "section-icon-grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Still Struggling With Overstuffed, Awkward Bags? Let’s Talk."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 60
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#fcf7f4"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#2d1f1f"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font Size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "label": "Heading Font Size",
+      "min": 16,
+      "max": 48,
+      "step": 1,
+      "default": 28,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon/Image"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "4-Column Icon Grid",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<section
+  class="icon-grid-section"
+  style="background-color: {{ section.settings.background_color }}; padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="page-width">
+    <h2 style="color: {{ section.settings.text_color }}; text-align: center; margin-bottom: 40px; font-size: {{ section.settings.heading_font_size }}px;">
+      {{ section.settings.heading }}
+    </h2>
+    <div class="icon-grid">
+      {% for block in section.blocks %}
+        <div class="icon-card" style="background-color: {{ section.settings.card_background }}; color: {{ section.settings.text_color }}; font-size: {{ section.settings.font_size }}px;">
+          {% if block.settings.icon != blank %}
+            <img src="{{ block.settings.icon | img_url: '100x100' }}" alt="Icon" class="icon" />
+          {% endif %}
+          <div class="text">{{ block.settings.text }}</div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .icon-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .icon-card {
+    padding: 24px;
+    border-radius: 16px;
+    text-align: left;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .icon-card .icon {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 12px;
+  }
+
+  .icon-card .text p {
+    margin: 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    .icon-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+

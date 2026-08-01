@@ -1,0 +1,648 @@
+{% comment %}
+  Save this as: sections/announcement-bar-custom.liquid
+{% endcomment %}
+
+<style>
+  .custom-announcement-bar__wrapper {
+    height: 55px;
+  }
+  .custom-announcement-bar {
+    width: 100%;
+    height: inherit;
+    text-align: left;
+    position: relative;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px;
+  }
+  
+  .custom-announcement-bar__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+  }
+  
+  .custom-announcement-bar__text {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.4;
+    color: inherit;
+  }
+  .custom-announcement-bar__text * {
+    color: inherit;
+    margin: 0;
+  }
+ 
+  
+  .custom-announcement-bar__link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .custom-announcement-bar__link:hover {
+    color: #fff !important;
+  }
+  
+  .custom-announcement-bar__timer {
+    font-weight: 600;
+    display: inline-flex;
+    gap: 5px;
+    align-items: baseline;
+    padding: 4px 10px 6px 10px;
+    border-radius: 5px;
+  }
+  
+  .custom-announcement-bar__timer-unit {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .custom-announcement-bar__timer-value,
+  .custom-announcement-bar__timer-unit {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .custom-announcement-bar__timer-label {
+    font-size: 11px;
+    text-transform: capitalize;
+    font-weight: 500;
+    line-height: 1;
+  }
+  
+  .custom-announcement-bar__close {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    opacity: 0.7;
+    color: inherit;
+  }
+  
+  .custom-announcement-bar__close:hover {
+    opacity: 1;
+  }
+  
+  .custom-announcement-bar[data-hidden="true"] {
+    display: none;
+  }
+  
+  @media only screen and (max-width: 749px) {
+    .custom-announcement-bar__wrapper {
+      height: 48px;
+    }
+    .custom-announcement-bar[data-hide-mobile="true"],
+    .custom-announcement-bar__text--desktop {
+      display: none !important;
+    }
+     .custom-announcement-bar__content {
+      gap: 12px;
+    }
+    .custom-announcement-bar__text {
+      font-size: 14px;
+    }
+      .custom-announcement-bar__timer-value,
+  .custom-announcement-bar__timer-unit {
+    font-size: 14px;
+  }
+  .custom-announcement-bar__timer-label {
+    font-size: 9px;
+  }
+  }
+  
+  @media only screen and (min-width: 750px) {
+    .custom-announcement-bar[data-hide-desktop="true"],
+    .custom-announcement-bar__text--mobile {
+      display: none !important;
+    }
+      .custom-announcement-bar__text {
+        margin: 0;
+        
+        color: inherit;
+    }
+  .custom-announcement-bar__text {
+    font-size: 14px;
+  }
+      .custom-announcement-bar__timer-label {
+        font-size: 11px;
+    }
+  }
+</style>
+
+{% for block in section.blocks %}
+  {% liquid
+    assign show_block = false
+    assign current_page_type = request.page_type
+    assign current_path = request.path
+    
+    # Check if current page is excluded
+    assign is_excluded = false
+    if block.settings.exclude_urls != blank
+      assign exclude_array = block.settings.exclude_urls | split: ','
+      for excluded_path in exclude_array
+        assign trimmed_excluded = excluded_path | strip
+        if current_path contains trimmed_excluded
+          assign is_excluded = true
+          break
+        endif
+      endfor
+    endif
+    
+    # Only proceed if not excluded
+    if is_excluded == false
+      # Check inclusion rules
+      if block.settings.show_on_all_pages
+        assign show_block = true
+      else
+        # Check specific page types
+        if block.settings.show_on_home and current_page_type == 'index'
+          assign show_block = true
+        endif
+        
+        if block.settings.show_on_collections and current_page_type == 'collection'
+          assign show_block = true
+        endif
+        
+        if block.settings.show_on_products and current_page_type == 'product'
+          assign show_block = true
+        endif
+        
+        if block.settings.show_on_pages and current_page_type == 'page'
+          assign show_block = true
+        endif
+        
+        if block.settings.show_on_cart and current_page_type == 'cart'
+          assign show_block = true
+        endif
+        
+        if block.settings.show_on_search and current_page_type == 'search'
+          assign show_block = true
+        endif
+        
+        if block.settings.show_on_blog and current_page_type == 'blog'
+          assign show_block = true
+        endif
+        
+        if block.settings.show_on_article and current_page_type == 'article'
+          assign show_block = true
+        endif
+        
+        # Check custom include URLs
+        if block.settings.include_urls != blank and show_block == false
+          assign include_array = block.settings.include_urls | split: ','
+          for include_path in include_array
+            assign trimmed_include = include_path | strip
+            if current_path contains trimmed_include
+              assign show_block = true
+              break
+            endif
+          endfor
+        endif
+      endif
+    endif
+  %}
+
+  {% if show_block %}
+    {% if block.settings.link != blank %}
+      <a href="{{ block.settings.link }}" class="custom-announcement-bar__link custom-announcement-bar__wrapper">
+    {% else %}
+      <div class="custom-announcement-bar__wrapper">
+    {% endif %}
+      <div 
+        class="custom-announcement-bar" 
+        data-section-id="{{ section.id }}"
+        data-block-id="{{ block.id }}"
+        data-timer-type="{{ block.settings.timer_type }}"
+        data-timer-enabled="{{ block.settings.enable_timer }}"
+        data-end-date="{{ block.settings.end_date }}"
+        data-duration-hours="{{ block.settings.duration_hours }}"
+        data-daily-start="{{ block.settings.daily_start_time }}"
+        data-daily-end="{{ block.settings.daily_end_time }}"
+        data-closeable="{{ block.settings.closeable }}"
+        data-hide-mobile="{{ block.settings.hide_on_mobile }}"
+        data-hide-desktop="{{ block.settings.hide_on_desktop }}"
+        style="background-color: {{ block.settings.background_color }}; color: {{ block.settings.text_color }}; {% if block.settings.sticky == true %} position: sticky; position: fixed; {% endif %}"
+        {{ block.shopify_attributes }}
+      >
+        
+        <div class="custom-announcement-bar__content">
+          <div class="custom-announcement-bar__text custom-announcement-bar__text--desktop">{{ block.settings.message }}</div>
+          <div class="custom-announcement-bar__text custom-announcement-bar__text--mobile">{{ block.settings.message_mobile | default: block.settings.message }}</div>
+          
+          {% if block.settings.enable_timer %}
+            <div class="custom-announcement-bar__timer" id="timer-{{ block.id }}" style="background-color: {{ block.settings.timer_background_color }};">
+              
+              <span class="custom-announcement-bar__timer-unit">
+                <span class="custom-announcement-bar__timer-value" data-hours>00</span>
+                <span class="custom-announcement-bar__timer-label">Hours</span>
+              </span>
+              <span class="custom-announcement-bar__timer-unit">
+              :
+              </span>
+              <span class="custom-announcement-bar__timer-unit">
+                <span class="custom-announcement-bar__timer-value" data-minutes>00</span>
+                <span class="custom-announcement-bar__timer-label">Minutes</span>
+              </span>
+              <span class="custom-announcement-bar__timer-unit">
+              :
+              </span>
+              <span class="custom-announcement-bar__timer-unit">
+                <span class="custom-announcement-bar__timer-value" data-seconds>00</span>
+                <span class="custom-announcement-bar__timer-label">Seconds</span>
+              </span>
+            </div>
+          {% endif %}
+        </div>
+        
+        {% if block.settings.closeable %}
+          <button class="custom-announcement-bar__close" aria-label="Close announcement">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M1 1L11 11M1 11L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        {% endif %}
+      </div>
+  {% if block.settings.link != blank %}
+    </a>
+  {% else %}
+    </div>
+  {% endif %}
+
+    <script>
+      (function() {
+        const bar = document.querySelector('[data-block-id="{{ block.id }}"]');
+        if (!bar) return;
+        
+        const timerId = 'announcement-bar-{{ block.id }}';
+        const closedKey = 'announcement-bar-closed-{{ block.id }}';
+        
+        // Check if bar was closed
+        if (bar.dataset.closeable === 'true' && localStorage.getItem(closedKey)) {
+          bar.setAttribute('data-hidden', 'true');
+          return;
+        }
+        
+        // Close button functionality
+        const closeBtn = bar.querySelector('.custom-announcement-bar__close');
+        if (closeBtn) {
+          closeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            bar.setAttribute('data-hidden', 'true');
+            localStorage.setItem(closedKey, 'true');
+          });
+        }
+        
+        // Timer functionality
+        if (bar.dataset.timerEnabled === 'true') {
+          const timerType = bar.dataset.timerType;
+          const timer = bar.querySelector('#timer-{{ block.id }}');
+          
+          if (!timer) return;
+          
+          
+          const hoursEl = timer.querySelector('[data-hours]');
+          const minutesEl = timer.querySelector('[data-minutes]');
+          const secondsEl = timer.querySelector('[data-seconds]');
+          
+          function pad(num) {
+            return num.toString().padStart(2, '0');
+          }
+          
+          function updateTimer(timeLeft) {
+            if (timeLeft <= 0) {
+              bar.setAttribute('data-hidden', 'true');
+              return false;
+            }
+            
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            
+            hoursEl.textContent = pad(hours);
+            minutesEl.textContent = pad(minutes);
+            secondsEl.textContent = pad(seconds);
+            
+            return true;
+          }
+          
+          function startTimer() {
+            let endTime;
+            
+            if (timerType === 'specific_date') {
+              endTime = new Date(bar.dataset.endDate).getTime();
+            } 
+            else if (timerType === 'duration') {
+              const stored = localStorage.getItem(timerId);
+              if (stored) {
+                endTime = parseInt(stored);
+              } else {
+                const hours = parseInt(bar.dataset.durationHours) || 24;
+                endTime = Date.now() + (hours * 60 * 60 * 1000);
+                localStorage.setItem(timerId, endTime.toString());
+              }
+            }
+            else if (timerType === 'daily') {
+              const now = new Date();
+              const [startHour, startMin] = bar.dataset.dailyStart.split(':').map(Number);
+              const [endHour, endMin] = bar.dataset.dailyEnd.split(':').map(Number);
+              
+              const todayStart = new Date(now);
+              todayStart.setHours(startHour, startMin, 0, 0);
+              
+              const todayEnd = new Date(now);
+              todayEnd.setHours(endHour, endMin, 0, 0);
+              
+              // If we're before the start time, hide the bar
+              if (now < todayStart) {
+                bar.setAttribute('data-hidden', 'true');
+                setTimeout(startTimer, todayStart - now);
+                return;
+              }
+              
+              // If we're after the end time, hide the bar and check tomorrow
+              if (now > todayEnd) {
+                bar.setAttribute('data-hidden', 'true');
+                const tomorrowStart = new Date(todayStart);
+                tomorrowStart.setDate(tomorrowStart.getDate() + 1);
+                setTimeout(startTimer, tomorrowStart - now);
+                return;
+              }
+              
+              // We're in the active window
+              bar.removeAttribute('data-hidden');
+              endTime = todayEnd.getTime();
+            }
+            
+            const interval = setInterval(() => {
+              const timeLeft = endTime - Date.now();
+              
+              if (!updateTimer(timeLeft)) {
+                clearInterval(interval);
+                if (timerType === 'duration') {
+                  localStorage.removeItem(timerId);
+                } else if (timerType === 'daily') {
+                  // Schedule next day's check
+                  const tomorrow = new Date();
+                  tomorrow.setDate(tomorrow.getDate() + 1);
+                  tomorrow.setHours(parseInt(bar.dataset.dailyStart.split(':')[0]), 0, 0, 0);
+                  setTimeout(startTimer, tomorrow - Date.now());
+                }
+              }
+            }, 1000);
+            
+            // Initial update
+            updateTimer(endTime - Date.now());
+          }
+          
+          startTimer();
+        }
+      })();
+    </script>
+  {% endif %}
+{% endfor %}
+
+{% schema %}
+{
+  "name": "Custom Announcement Bars",
+  "max_blocks": 10,
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Announcement Bar",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "message",
+          "label": "Message"
+        },
+         {
+          "type": "richtext",
+          "id": "message_mobile",
+          "label": "Message Mobile"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link (optional)",
+          "info": "The entire bar will be clickable if a link is added"
+        },
+        {
+          "type": "header",
+          "content": "Device Visibility"
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_on_mobile",
+          "label": "Hide on mobile",
+          "default": false,
+          "info": "Hide this bar on mobile devices (screens under 750px)"
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_on_desktop",
+          "label": "Hide on desktop",
+          "default": false,
+          "info": "Hide this bar on desktop devices (screens 750px and above)"
+        },
+        {
+          "type": "header",
+          "content": "Page Visibility - Include"
+        },
+        {
+          "type": "paragraph",
+          "content": "Choose where to show this announcement bar"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_on_all_pages",
+          "label": "Show on all pages",
+          "default": false,
+          "info": "This will override other page settings"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_on_home",
+          "label": "Show on home page",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_on_collections",
+          "label": "Show on collection pages",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_on_products",
+          "label": "Show on product pages",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_on_pages",
+          "label": "Show on content pages",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_on_cart",
+          "label": "Show on cart page",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_on_search",
+          "label": "Show on search page",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_on_blog",
+          "label": "Show on blog pages",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_on_article",
+          "label": "Show on article pages",
+          "default": false
+        },
+        {
+          "type": "textarea",
+          "id": "include_urls",
+          "label": "Include specific URLs",
+          "info": "Comma-separated list of page handles or URL paths to INCLUDE (e.g., /pages/about, /collections/sale, /products/special-product). Use this for precise targeting."
+        },
+        {
+          "type": "header",
+          "content": "Page Visibility - Exclude"
+        },
+        {
+          "type": "paragraph",
+          "content": "These exclusions will override any include settings above"
+        },
+        {
+          "type": "textarea",
+          "id": "exclude_urls",
+          "label": "Exclude specific URLs",
+          "info": "Comma-separated list of page handles or URL paths to EXCLUDE (e.g., /pages/wholesale, /collections/clearance). This bar will NOT show on these pages even if included above."
+        },
+        {
+          "type": "header",
+          "content": "Timer Settings"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_timer",
+          "label": "Enable countdown timer",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "timer_type",
+          "label": "Timer type",
+          "options": [
+            {
+              "value": "specific_date",
+              "label": "To specific date/time"
+            },
+            {
+              "value": "duration",
+              "label": "Duration from first view"
+            },
+            {
+              "value": "daily",
+              "label": "Daily recurring hours"
+            }
+          ],
+          "default": "specific_date"
+        },
+        {
+          "type": "text",
+          "id": "end_date",
+          "label": "End date/time (for specific date)",
+          "info": "Format: YYYY-MM-DDTHH:MM (e.g., 2025-12-31T23:59)",
+          "visible_if": "{{ block.settings.timer_type == 'specific_date' }}"
+        },
+        {
+          "type": "number",
+          "id": "duration_hours",
+          "label": "Duration in hours (for duration type)",
+          "default": 24,
+          "visible_if": "{{ block.settings.timer_type == 'duration' }}"
+        },
+        {
+          "type": "text",
+          "id": "daily_start_time",
+          "label": "Daily start time",
+          "info": "Format: HH:MM (e.g., 09:00)",
+          "default": "09:00",
+          "visible_if": "{{ block.settings.timer_type == 'daily' }}"
+        },
+        {
+          "type": "text",
+          "id": "daily_end_time",
+          "label": "Daily end time",
+          "info": "Format: HH:MM (e.g., 17:00)",
+          "default": "17:00",
+          "visible_if": "{{ block.settings.timer_type == 'daily' }}"
+        },
+        {
+          "type": "header",
+          "content": "Styling"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "timer_background_color",
+          "label": "Timer background color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "checkbox",
+          "id": "sticky",
+          "label": "Make it sticky",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "closeable",
+          "label": "Allow users to close",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Announcement Bars",
+      "blocks": [
+        {
+          "type": "announcement"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

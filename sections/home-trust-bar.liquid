@@ -1,0 +1,281 @@
+{%- assign trust_bar_fill = section.settings.rating | divided_by: 5.0 | times: 100.0 | round: 1 -%}
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .color-scheme-{{ section.id }}.color-custom {
+    --color-background: {{ section.settings.custom_colors_background.red }}, {{ section.settings.custom_colors_background.green }}, {{ section.settings.custom_colors_background.blue }};
+    --gradient-background: {% if section.settings.custom_gradient_background != blank %}{{ section.settings.custom_gradient_background }}{% else %}{{ section.settings.custom_colors_background }}{% endif %};
+    --color-foreground: {{ section.settings.custom_colors_text.red }}, {{ section.settings.custom_colors_text.green }}, {{ section.settings.custom_colors_text.blue }};
+  }
+
+  .home-trust-bar-{{ section.id }} .home-trust-bar__content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: {{ section.settings.text_alignment }};
+    column-gap: 1.2rem;
+    row-gap: 0.4rem;
+    text-align: {{ section.settings.text_alignment }};
+  }
+
+  .home-trust-bar-{{ section.id }} .home-trust-bar__stars {
+    position: relative;
+    display: inline-block;
+    font-size: {{ section.settings.star_size }}px;
+    line-height: 1;
+  }
+
+  .home-trust-bar-{{ section.id }} .home-trust-bar__stars-back,
+  .home-trust-bar-{{ section.id }} .home-trust-bar__stars-fill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15em;
+    white-space: nowrap;
+  }
+
+  .home-trust-bar-{{ section.id }} .home-trust-bar__stars svg {
+    display: block;
+    width: 1em;
+    height: 1em;
+  }
+
+  .home-trust-bar-{{ section.id }} .home-trust-bar__stars-back {
+    color: {{ section.settings.empty_star_color }};
+  }
+
+  .home-trust-bar-{{ section.id }} .home-trust-bar__stars-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow: hidden;
+    width: {{ trust_bar_fill }}%;
+    color: {{ section.settings.star_color }};
+  }
+
+  .home-trust-bar-{{ section.id }} .home-trust-bar__text {
+    margin: 0;
+    font-size: 1.3rem;
+  }
+
+  .home-trust-bar-{{ section.id }} .home-trust-bar__text > :last-child {
+    margin-bottom: 0;
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} color-scheme-{{ section.id }} gradient {{ section.settings.visibility }} home-trust-bar-{{ section.id }}">
+  <div class="page-width section-{{ section.id }}-padding">
+    <div class="home-trust-bar__content">
+      <div class="home-trust-bar__stars" role="img" aria-label="{{ 'Rated' }} {{ section.settings.rating }} {{ 'out of 5' }}">
+        <div class="home-trust-bar__stars-back">
+          {%- for i in (1..5) -%}
+            <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+              <path d="M10 1.5l2.5 5.1 5.6.8-4 3.9.9 5.6L10 14.2l-5 2.7.9-5.6-4-3.9 5.6-.8L10 1.5z" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+            </svg>
+          {%- endfor -%}
+        </div>
+        <div class="home-trust-bar__stars-fill">
+          {%- for i in (1..5) -%}
+            <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+              <path d="M10 1.5l2.5 5.1 5.6.8-4 3.9.9 5.6L10 14.2l-5 2.7.9-5.6-4-3.9 5.6-.8L10 1.5z" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+            </svg>
+          {%- endfor -%}
+        </div>
+      </div>
+      {%- if section.settings.text != blank -%}
+        <div class="home-trust-bar__text rte">
+          {{ section.settings.text }}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.home-trust-bar.name",
+  "tag": "section",
+  "class": "section home-trust-bar-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "visibility",
+      "options": [
+        {
+          "value": "desktop-hidden",
+          "label": "Mobile only"
+        },
+        {
+          "value": "mobile-hidden",
+          "label": "Desktop only"
+        },
+        {
+          "value": "always-display",
+          "label": "All devices"
+        }
+      ],
+      "default": "always-display",
+      "label": "Display on"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.home-trust-bar.settings.content_stars"
+    },
+    {
+      "type": "range",
+      "id": "rating",
+      "min": 1,
+      "max": 5,
+      "step": 0.1,
+      "default": 4.8,
+      "label": "t:sections.home-trust-bar.settings.rating.label"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "default": "#da6319",
+      "label": "t:sections.home-trust-bar.settings.star_color.label"
+    },
+    {
+      "type": "color",
+      "id": "empty_star_color",
+      "default": "#ececec",
+      "label": "t:sections.home-trust-bar.settings.empty_star_color.label"
+    },
+    {
+      "type": "range",
+      "id": "star_size",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "default": 14,
+      "label": "t:sections.home-trust-bar.settings.star_size.label",
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.home-trust-bar.settings.content_text"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "default": "<p>RATED 4.8/5 | <em>LOVED BY 70,000 CUSTOMERS</em></p>",
+      "label": "t:sections.home-trust-bar.settings.text.label"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.home-trust-bar.settings.text_alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.home-trust-bar.settings.text_alignment.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.home-trust-bar.settings.text_alignment.options__3.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.home-trust-bar.settings.text_alignment.label"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "t:sections.all.colors.accent_1.label"
+        },
+        {
+          "value": "accent-2",
+          "label": "t:sections.all.colors.accent_2.label"
+        },
+        {
+          "value": "background-1",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "background-2",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.all.colors.inverse.label"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "default": "background-1",
+      "label": "t:sections.all.colors.label"
+    },
+    {
+      "type": "header",
+      "content": "Custom color scheme",
+      "info": "Applied if Color scheme setting is set to Custom."
+    },
+    {
+      "type": "color",
+      "id": "custom_colors_background",
+      "default": "#ffffff",
+      "label": "Background color"
+    },
+    {
+      "type": "color_background",
+      "id": "custom_gradient_background",
+      "label": "Gradient background",
+      "info": "If added, replaces Background color when applicable."
+    },
+    {
+      "type": "color",
+      "id": "custom_colors_text",
+      "default": "#121212",
+      "label": "Text"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.home-trust-bar.presets.name"
+    }
+  ]
+}
+{% endschema %}

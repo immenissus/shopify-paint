@@ -1,0 +1,221 @@
+{% comment %}
+  Renders product price (regular, sale, compare-at)
+  Accepts:
+  - product
+  - use_variant (Boolean)
+  - show_badges (Boolean)
+  - price_class (String)
+  - hide_currency_code (Boolean)
+  - main_price / price_second / layout / block.* (theme-specific)
+{% endcomment %}
+{%- liquid
+  if use_variant
+    assign target = product.selected_or_first_available_variant
+  else
+    assign target = product
+  endif
+
+  assign compare_at_price = target.compare_at_price
+  assign price = target.price | default: 1999
+  assign available = target.available | default: false
+
+  # Currency / country helpers (stable)
+  assign currency_iso = localization.country.currency.iso_code | upcase
+
+  assign is_aud = false
+  assign is_cad = false
+  assign is_nzd = false
+  if currency_iso == 'AUD'
+    assign is_aud = true
+  endif
+  if currency_iso == 'CAD'
+    assign is_cad = true
+  endif
+  if currency_iso == 'NZD'
+    assign is_nzd = true
+  endif
+
+  assign no_decimals = false
+  if currency_iso == 'AUD' or currency_iso == 'CAD' or currency_iso == 'GBP' or currency_iso == 'NZD'
+    assign no_decimals = true
+  endif
+
+  # ---- Format numbers once (respect theme setting for other markets) ----
+  if no_decimals
+    assign formatted_price = price | money_without_trailing_zeros
+    assign formatted_compare = compare_at_price | money_without_trailing_zeros
+  else
+    if settings.currency_code_enabled and hide_currency_code != true
+      assign formatted_price = price | money_with_currency
+      assign formatted_compare = compare_at_price | money_with_currency
+    else
+      assign formatted_price = price | money
+      assign formatted_compare = compare_at_price | money
+    endif
+  endif
+
+  # "From" label if product price varies
+  if target == product and product.price_varies
+    assign formatted_price = 'products.product.price.from_price_html' | t: price: formatted_price
+  endif
+-%}
+
+{% if main_price %}
+  <style>
+    #main-price-{{ block.id }} .price__regular .price-item--regular {
+      font-size: {{ block.settings.regular_price_size | divided_by: 10.0 }}rem;
+    }
+    #main-price-{{ block.id }} .price__sale .price-item--sale {
+      font-size: {{ block.settings.sale_price_size | divided_by: 10.0 }}rem;
+    }
+    #main-price-{{ block.id }} .price__compare-price .price-item--regular {
+      font-size: {{ block.settings.compare_price_size | divided_by: 10.0 }}rem;
+    }
+  </style>
+{% endif %}
+
+<div
+  class="price
+    {%- if price_class %} {{ price_class }}{% endif -%}
+    {%- if available == false %} price--sold-out {% endif -%}
+    {%- if layout %} price-layout price--{{ layout }} {% endif -%}
+    {%- if compare_at_price > price %} price--on-sale {% endif -%}
+    {%- if product.price_varies == false and product.compare_at_price_varies %} price--no-compare{% endif -%}
+    {%- if show_badges %} price--show-badge{% endif -%}
+  "
+  {% if main_price %}id="main-price-{{ block.id }}"{% endif %}
+>
+  <div class="price__container">
+    {%- comment -%} REGULAR PRICE {%- endcomment -%}
+    <div class="price__regular">
+      <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.regular_price' | t }}</span>
+      <span class="price-item price-item--regular{% if main_price %} main-price accent-color-{{ block.settings.price_color }}{% endif %}">
+        {% if is_aud %}
+          <span class="currency-prefix price-item price-item--regular{% if main_price %} main-price accent-color-{{ block.settings.price_color }}{% endif %}">AU</span>
+          {{ formatted_price }}
+        {% elsif is_cad %}
+          <span class="currency-prefix price-item price-item--regular{% if main_price %} main-price accent-color-{{ block.settings.price_color }}{% endif %}">CA</span>
+          {{ formatted_price }}
+        {% elsif is_nzd %}
+          <span class="currency-prefix price-item price-item--regular{% if main_price %} main-price accent-color-{{ block.settings.price_color }}{% endif %}">NZ</span>
+          {{ formatted_price }}
+        {% else %}
+          {{ formatted_price }}
+        {% endif %}
+      </span>
+    </div>
+
+    {%- comment -%} SALE PRICE + COMPARE AT {%- endcomment -%}
+    <div class="price__sale {% if price_second %} price__sale--price-second{% endif %}">
+      <span class="visually-hidden visually-hidden--inline compare-price-label">
+        {{- 'products.product.price.regular_price' | t -}}
+      </span>
+
+      {% comment %} Current (sale) price {% endcomment %}
+      <span class="price-item price-item--sale price-item--last{% if main_price %} main-price accent-color-{{ block.settings.price_color }}{% endif %}">
+        {% if is_aud %}
+          <span class="currency-prefix price-item price-item--sale{% if main_price %} main-price accent-color-{{ block.settings.price_color }}{% endif %}">AU</span>
+          {{ formatted_price }}
+        {% elsif is_cad %}
+          <span class="currency-prefix price-item price-item--sale{% if main_price %} main-price accent-color-{{ block.settings.price_color }}{% endif %}">CA</span>
+          {{ formatted_price }}
+        {% elsif is_nzd %}
+          <span class="currency-prefix price-item price-item--sale{% if main_price %} main-price accent-color-{{ block.settings.price_color }}{% endif %}">NZ</span>
+          {{ formatted_price }}
+        {% else %}
+          {{ formatted_price }}
+        {% endif %}
+      </span>
+
+      {%- unless product.price_varies == false and product.compare_at_price_varies -%}
+        <span class="visually-hidden visually-hidden--inline regular-price-label">
+          {{- 'products.product.price.sale_price' | t -}}
+        </span>
+
+        {% comment %} Old compare-at price (prefix outside strike so it's not crossed) {% endcomment %}
+        <span class="price__compare-price">
+          {% if is_aud %}
+            <span class="currency-prefix price-item price-item--regular{% if main_price %} main-comapre-price accent-color-{{ block.settings.compare_price_color }}{% endif %}">AU</span>
+            <s class="price-item price-item--regular{% if main_price %} main-comapre-price accent-color-{{ block.settings.compare_price_color }}{% endif %}">
+              {{ formatted_compare }}
+            </s>
+          {% elsif is_cad %}
+            <span class="currency-prefix price-item price-item--regular{% if main_price %} main-comapre-price accent-color-{{ block.settings.compare_price_color }}{% endif %}">CA</span>
+            <s class="price-item price-item--regular{% if main_price %} main-comapre-price accent-color-{{ block.settings.compare_price_color }}{% endif %}">
+              {{ formatted_compare }}
+            </s>
+          {% elsif is_nzd %}
+            <span class="currency-prefix price-item price-item--regular{% if main_price %} main-comapre-price accent-color-{{ block.settings.compare_price_color }}{% endif %}">NZ</span>
+            <s class="price-item price-item--regular{% if main_price %} main-comapre-price accent-color-{{ block.settings.compare_price_color }}{% endif %}">
+              {{ formatted_compare }}
+            </s>
+          {% else %}
+            <s class="price-item price-item--regular{% if main_price %} main-comapre-price accent-color-{{ block.settings.compare_price_color }}{% endif %}">
+              {{ formatted_compare }}
+            </s>
+          {% endif %}
+        </span>
+      {%- endunless -%}
+    </div>
+
+    {%- comment -%} UNIT PRICE {%- endcomment -%}
+    <small class="unit-price caption{% if product.selected_or_first_available_variant.unit_price_measurement == nil %} hidden{% endif %}">
+      <span class="visually-hidden">{{ 'products.product.price.unit_price' | t }}</span>
+      <span class="price-item price-item--last">
+        <span>
+          {% assign unit_fmt = product.selected_or_first_available_variant.unit_price | money %}
+          {% if currency_iso == 'AUD' or currency_iso == 'CAD' or currency_iso == 'GBP' or currency_iso == 'NZD' %}
+            {% assign unit_fmt = product.selected_or_first_available_variant.unit_price | money_without_trailing_zeros %}
+          {% endif %}
+          {% if is_aud %}
+            <span class="currency-prefix">AU</span> {{- unit_fmt -}}
+          {% elsif is_cad %}
+            <span class="currency-prefix">CA</span> {{- unit_fmt -}}
+          {% elsif is_nzd %}
+            <span class="currency-prefix">NZ</span> {{- unit_fmt -}}
+          {% else %}
+            {{- unit_fmt -}}
+          {% endif %}
+        </span>
+        <span aria-hidden="true">/</span>
+        <span class="visually-hidden">&nbsp;{{ 'accessibility.unit_price_separator' | t }}&nbsp;</span>
+        <span>
+          {%- if product.selected_or_first_available_variant.unit_price_measurement.reference_value != 1 -%}
+            {{- product.selected_or_first_available_variant.unit_price_measurement.reference_value -}}
+          {%- endif -%}
+          {{ product.selected_or_first_available_variant.unit_price_measurement.reference_unit }}
+        </span>
+      </span>
+    </small>
+  </div>
+
+  {%- if show_badges -%}
+    {% unless hide_sale_badge %}
+      <span class="badge price__badge-sale color-{{ settings.sale_badge_color_scheme }}">
+        {% assign percentage_saved = compare_at_price | minus: price | times: 100.0 | divided_by: compare_at_price | floor | append: '%' %}
+        {% capture money_saved %}
+          {% assign saved = compare_at_price | minus: price %}
+          {% if currency_iso == 'AUD' or currency_iso == 'CAD' or currency_iso == 'GBP' or currency_iso == 'NZD' %}
+            {% assign saved_fmt = saved | money_without_trailing_zeros %}
+          {% else %}
+            {% assign saved_fmt = saved | money %}
+          {% endif %}
+          {% if is_aud %}
+            <span class="currency-prefix">AU</span> {{ saved_fmt }}
+          {% elsif is_cad %}
+            <span class="currency-prefix">CA</span> {{ saved_fmt }}
+          {% elsif is_nzd %}
+            <span class="currency-prefix">NZ</span> {{ saved_fmt }}
+          {% else %}
+            {{ saved_fmt }}
+          {% endif %}
+        {% endcapture %}
+        {% if settings.sale_basge_discount_icon %}{% render 'icon-discount' %}{% endif %}
+        <span class='nowrap'>{{ settings.sale_badge_text | replace: '[percentage]', percentage_saved | replace: '[amount]', money_saved }}</span>
+      </span>
+    {% endunless %}
+    <span class="badge price__badge-sold-out color-{{ settings.sold_out_badge_color_scheme }}">
+      {{ 'products.product.sold_out' | t }}
+    </span>
+  {%- endif -%}
+</div>

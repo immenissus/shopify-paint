@@ -1,0 +1,631 @@
+{
+  "sections": {
+    "hero": {
+      "type": "home-hero",
+      "name": "t:sections.home-hero.presets.name",
+      "settings": {
+        "visibility": "always-display",
+        "heading": "Watch Their Creativity Come to Life",
+        "heading_size": "h1",
+        "text": "<p>Create colorful squishy water elves, bunnies, and fun characters together. This hands-on activity keeps kids entertained for hours while sparking creativity and imagination. The perfect Easter surprise for curious little creators.</p>",
+        "button_label": "SHOP SPRING SALE",
+        "button_link": "shopify://collections/elf-kits",
+        "button_secondary_label": "",
+        "button_secondary_link": "",
+        "desktop_image": "shopify://shop_images/WE_RE_SELLING_OUT_FAST_17.png",
+        "mobile_image": "shopify://shop_images/UP_TO_65_OFF_19.png",
+        "image_height": "adapt",
+        "image_radius": 0,
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "center",
+        "color_scheme": "custom",
+        "custom_colors_background": "#ffffff",
+        "custom_gradient_background": "",
+        "custom_colors_text": "#121212",
+        "custom_colors_solid_button_background": "#da6319",
+        "custom_colors_solid_button_text": "#ffffff",
+        "custom_colors_outline_button": "#121212",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "logo_list": {
+      "type": "logo-list",
+      "blocks": {
+        "logo_pgX7f7": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Ryan_27s_World_logo.webp",
+            "link": "",
+            "target_blank": false
+          }
+        },
+        "logo_wpXYDh": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Highlights-Logo.png",
+            "link": "",
+            "target_blank": false
+          }
+        },
+        "logo_pY9UYq": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/unnamed.jpg",
+            "link": "",
+            "target_blank": false
+          }
+        }
+      },
+      "block_order": [
+        "logo_pgX7f7",
+        "logo_wpXYDh",
+        "logo_pY9UYq"
+      ],
+      "name": "Featured on",
+      "settings": {
+        "visibility": "always-display",
+        "title": "Featured on",
+        "heading_size": "h1",
+        "gray_logos": false,
+        "color_scheme": "background-1",
+        "layout": "horizontal",
+        "desktop_logo_height": 50,
+        "columns_mobile": 3,
+        "mobile_logo_height": 50,
+        "swipe_on_mobile": true,
+        "autoplay": true,
+        "autoplay_speed": 5,
+        "show_dots": false,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "custom_colors_background": "#ffffff",
+        "custom_gradient_background": "",
+        "custom_colors_text": "#121212"
+      }
+    },
+    "benefit_ticker": {
+      "type": "horizontal-ticker",
+      "blocks": {
+        "text_1": {
+          "type": "text",
+          "settings": {
+            "title": "Magical creations appear in seconds"
+          }
+        },
+        "text_2": {
+          "type": "text",
+          "settings": {
+            "title": "Boosts creativity & imagination"
+          }
+        },
+        "text_3": {
+          "type": "text",
+          "settings": {
+            "title": "Develops focus & fine motor skills"
+          }
+        },
+        "text_wMU7Gn": {
+          "type": "text",
+          "settings": {
+            "title": "Mess-free, parent-approved fun"
+          }
+        },
+        "text_nqaj8D": {
+          "type": "text",
+          "settings": {
+            "title": "Perfect bonding activity for families."
+          }
+        },
+        "text_WpnzUc": {
+          "type": "text",
+          "settings": {
+            "title": "A gift every child will remember"
+          }
+        }
+      },
+      "block_order": [
+        "text_1",
+        "text_2",
+        "text_3",
+        "text_wMU7Gn",
+        "text_nqaj8D",
+        "text_WpnzUc"
+      ],
+      "name": "Horizontal ticker",
+      "settings": {
+        "visibility": "always-display",
+        "speed": 2,
+        "text_spacing": 2,
+        "text_size": "1.75",
+        "italic_text": false,
+        "uppercase_text": false,
+        "bold_text": false,
+        "color_scheme": "accent-1",
+        "padding_top": 16,
+        "padding_bottom": 16,
+        "custom_colors_background": "#ffffff",
+        "custom_gradient_background": "",
+        "custom_colors_text": "#2e2a39"
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "name": "t:sections.featured-collection.presets.name",
+      "settings": {
+        "visibility": "always-display",
+        "title": "Elf Kits To Choose From",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "color_scheme": "background-1",
+        "collection": "frontpage",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "product_cards_stretch": false,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": true,
+        "cards_color_scheme": "background-1",
+        "image_ratio": "adapt",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_quick_add": false,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "custom_colors_background": "#ffffff",
+        "custom_gradient_background": "",
+        "custom_colors_text": "#2e2a39",
+        "custom_colors_solid_button_background": "#dd1d1d",
+        "custom_colors_solid_button_text": "#ffffff"
+      }
+    },
+    "trust_bar": {
+      "type": "home-trust-bar",
+      "name": "t:sections.home-trust-bar.presets.name",
+      "settings": {
+        "visibility": "always-display",
+        "rating": 4.8,
+        "star_color": "#da6319",
+        "empty_star_color": "#ececec",
+        "star_size": 14,
+        "text": "<p>RATED 4.8/5 | <em>LOVED BY 70,000 CUSTOMERS</em></p>",
+        "text_alignment": "center",
+        "color_scheme": "background-1",
+        "custom_colors_background": "#ffffff",
+        "custom_gradient_background": "",
+        "custom_colors_text": "#121212",
+        "padding_top": 40,
+        "padding_bottom": 0
+      }
+    },
+    "social_proof": {
+      "type": "home-social-proof",
+      "name": "t:sections.home-social-proof.presets.name",
+      "settings": {
+        "visibility": "always-display",
+        "heading": "Real Satisfied Customers",
+        "heading_size": "h1",
+        "text": "",
+        "text_alignment": "center",
+        "color_scheme": "background-1",
+        "custom_colors_background": "#ffffff",
+        "custom_gradient_background": "",
+        "custom_colors_text": "#2e2a39",
+        "padding_top": 4,
+        "padding_bottom": 4
+      }
+    },
+    "ugc_scroller": {
+      "type": "correct-scroller",
+      "blocks": {
+        "image_ngYYD4": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Untitled_design_88_1.png",
+            "url": ""
+          }
+        },
+        "image_PMzf7d": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/IMG_4064.jpg",
+            "url": ""
+          }
+        },
+        "image_9dRjaz": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/61QgF2qIvAL.jpg",
+            "url": ""
+          }
+        },
+        "image_r8wM3A": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/71wTmSupK4L.jpg",
+            "url": ""
+          }
+        },
+        "image_7B4q64": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/71O1kARGxAL.jpg",
+            "url": ""
+          }
+        },
+        "image_drrRnz": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/71xbgekSq6L.jpg",
+            "url": ""
+          }
+        },
+        "image_nKd6AB": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/71eLHC2HqGL.jpg",
+            "url": ""
+          }
+        },
+        "image_CCEpTg": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/71K7J_HFtRL.jpg",
+            "url": ""
+          }
+        },
+        "image_JJGh7d": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/71UcFuTLHRL.jpg",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_ngYYD4",
+        "image_PMzf7d",
+        "image_9dRjaz",
+        "image_r8wM3A",
+        "image_7B4q64",
+        "image_drrRnz",
+        "image_nKd6AB",
+        "image_CCEpTg",
+        "image_JJGh7d"
+      ],
+      "name": "SS - Scrolling images",
+      "settings": {
+        "heading": "",
+        "heading_custom": false,
+        "heading_font": "josefin_sans_n4",
+        "heading_size": 40,
+        "heading_height": 130,
+        "heading_align": "center",
+        "slider_speed": 18,
+        "slider_advanced": false,
+        "slider_gap": 10,
+        "slider_gap_mobile": 10,
+        "slider_mt": 32,
+        "slider_direction": "left",
+        "pause_hover": false,
+        "image_width_desktop": 170,
+        "image_width_mobile": 140,
+        "image_height_desktop": 190,
+        "image_height_mobile": 160,
+        "image_radius": 10,
+        "use_content": false,
+        "content_position": "center",
+        "content_max_width": 340,
+        "content_max_width_mobile": 340,
+        "content_advanced": false,
+        "content_padding_vertical": 30,
+        "content_padding_horizontal": 30,
+        "content_distance": 60,
+        "content_radius": 10,
+        "content_border_thickness": 0,
+        "use_shadow": true,
+        "text": "<p>+29.000 people love our product</p>",
+        "text_custom": false,
+        "text_font": "josefin_sans_n4",
+        "text_size": 24,
+        "text_height": 150,
+        "heading_color": "#000000",
+        "content_bg": "#ffffff",
+        "content_border_color": "#000000",
+        "text_color": "#000000",
+        "background_style": "solid",
+        "background_color": "#ffffff",
+        "background_gradient": "linear-gradient(180deg, #FFFFFF 0%, #F2F2F2 100%)",
+        "border_color": "#000000",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_horizontal": 5,
+        "padding_horizontal_mobile": 1.5,
+        "width": "full",
+        "content_width": 1200,
+        "border_thickness": 0,
+        "lazy": true
+      }
+    },
+    "benefits_grid": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_rct8DH": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/3_c47ba310-c591-44b1-ab6d-abfd8680e214.png",
+            "title": "Encourages Learning",
+            "text": "<p>Every step teaches sequencing, cause & effect, and problem-solving.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_nTgUmc": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/5_3fe00360-6d27-44b3-9d8e-0f0eb6064810.png",
+            "title": "Screen-Free Play",
+            "text": "<p>Keeps kids engaged without tablets or TVs, a welcome break from screen time.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_RTCYfn": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/4_56eac883-8703-4045-97b0-17203ce78634.png",
+            "title": "Boosts Creativity",
+            "text": "<p>Kids design their own magical figures, sparking imagination far beyond ordinary toys.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_rct8DH",
+        "column_nTgUmc",
+        "column_RTCYfn"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "visibility": "always-display",
+        "title": "More Than Just A Toy",
+        "heading_size": "h1",
+        "image_width": "half",
+        "image_ratio": "adapt",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "none",
+        "button_label": "GET YOUR BUNDLE NOW",
+        "button_link": "shopify://products/water-elf-kit",
+        "color_scheme": "background-1",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "slider_preview": true,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "custom_colors_background": "#f7f7dd",
+        "custom_gradient_background": "",
+        "custom_colors_text": "#2e2a39",
+        "custom_colors_solid_button_background": "#dd1d1d",
+        "custom_colors_solid_button_text": "#ffffff"
+      }
+    },
+    "featured_product": {
+      "type": "featured-product",
+      "blocks": {
+        "custom_liquid_7n6WBm": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div style=\"display: flex; align-items: center; font-family: inherit;\">\n  <!-- Star Rating -->\n  <div style=\"color: #da6319; font-size: 15px; margin-right: 10px; display: flex; position: relative;\">\n    <!-- Full Stars -->\n    {% for i in (1..4) %}\n      <span>&#9733;</span> <!-- Full Star -->\n    {% endfor %}\n\n    <!-- Right Half Star -->\n    <span style=\"position: relative; display: inline-block;\">\n      <span style=\"color: lightgray;\">&#9733;</span> <!-- Empty Star -->\n      <span style=\"position: absolute; left: 0%; width: 50%; overflow: hidden; color: #da6319;\">&#9733;</span> <!-- Right Half Star -->\n    </span>\n  </div>\n\n  <!-- Rating Text -->\n  <div style=\"font-size: 12px; color: black;\">\n    RATED 4.8/5 | <em>LOVED BY 70,000 CUSTOMERS</em>\n  </div>\n</div>"
+          }
+        },
+        "title_98kVXE": {
+          "type": "title",
+          "settings": {
+            "text_size": "h1",
+            "title_alignment": "left",
+            "uppercase_title": false,
+            "margin_top": 0,
+            "margin_bottom": 15
+          }
+        },
+        "price_FgJcDC": {
+          "type": "price",
+          "settings": {
+            "price_layout": "price-first",
+            "price_color": "text",
+            "compare_price_color": "outline-button",
+            "regular_price_size": 25,
+            "sale_price_size": 20,
+            "compare_price_size": 16,
+            "hide_sale_badge": false,
+            "margin_top": 15,
+            "margin_bottom": 15
+          }
+        },
+        "quantity_selector_ATwG6U": {
+          "type": "quantity_selector",
+          "settings": {
+            "full_width_classic": false,
+            "atc_append": "none",
+            "atc_append_heights": "stretch-quantity",
+            "enable_quantity_discounts": false,
+            "headline": "BUNDLE & SAVE",
+            "preselected": "option_1",
+            "display_badge": "none",
+            "badge_text": "Most Popular",
+            "enable_variant_selectors": true,
+            "enable_variant_selectors_on_quantity_of_1": false,
+            "update_prices": false,
+            "skip_unavailable": false,
+            "color_scheme": "accent-1",
+            "option_1_quantity": 1,
+            "option_1_label": "",
+            "option_1_benefit": "",
+            "option_1_caption": "You save [amount_saved]",
+            "option_1_percentage_off_text": "0",
+            "option_1_fixed_amount_off": "0",
+            "option_1_compare_price": "compare_price",
+            "option_2_quantity": 2,
+            "option_2_label": "",
+            "option_2_benefit": "",
+            "option_2_caption": "You save [amount_saved]",
+            "option_2_percentage_off_text": "0",
+            "option_2_fixed_amount_off": "0",
+            "option_2_compare_price": "compare_price",
+            "option_3_quantity": 3,
+            "option_3_label": "",
+            "option_3_benefit": "",
+            "option_3_caption": "You save [amount_saved]",
+            "option_3_percentage_off_text": "0",
+            "option_3_fixed_amount_off": "0",
+            "option_3_compare_price": "compare_price",
+            "option_4_quantity": 4,
+            "option_4_label": "",
+            "option_4_benefit": "",
+            "option_4_caption": "You save [amount_saved]",
+            "option_4_percentage_off_text": "0",
+            "option_4_fixed_amount_off": "0",
+            "option_4_compare_price": "compare_price",
+            "margin_top": 15,
+            "margin_bottom": 15
+          }
+        },
+        "kaching_bundles_app_block_6Bjkxp": {
+          "type": "shopify://apps/kaching-bundles/blocks/app-block/6c637362-a106-4a32-94ac-94dcfd68cdb8",
+          "settings": {
+            "product": "{{section.settings.product}}",
+            "manual_deal_block_id": ""
+          }
+        },
+        "buy_buttons_M7zHri": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "skip_cart": false,
+            "atc_custom_label": "",
+            "display_price": false,
+            "uppercase_text": true,
+            "enable_custom_color": false,
+            "custom_color": "#6d388b",
+            "custom_text_color": "#ffffff",
+            "margin_top": 24,
+            "margin_bottom": 24
+          }
+        }
+      },
+      "block_order": [
+        "custom_liquid_7n6WBm",
+        "title_98kVXE",
+        "price_FgJcDC",
+        "quantity_selector_ATwG6U",
+        "kaching_bundles_app_block_6Bjkxp",
+        "buy_buttons_M7zHri"
+      ],
+      "name": "t:sections.featured-product.presets.name",
+      "settings": {
+        "visibility": "always-display",
+        "product": "water-elf-kit",
+        "color_scheme": "background-1",
+        "secondary_background": false,
+        "enable_sticky_info": true,
+        "product_images": "all",
+        "display_variant_image_first": false,
+        "disable_prepend": false,
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "thumbnail_slider",
+        "media_position": "left",
+        "image_zoom": "none",
+        "hide_variants": false,
+        "desktop_thumbnails_count": 5,
+        "video_player": "autoplay",
+        "enable_video_looping": false,
+        "autoplay_videos_pause_btn": false,
+        "play_btn_color_scheme": "accent-1",
+        "mobile_thumbnails": "show",
+        "mobile_media_corner_radius": 14,
+        "mobile_spacing": true,
+        "mobile_preview_media": false,
+        "mobile_thumbnails_count": 5,
+        "mobile_pagination": "dots_overlay",
+        "hide_arrows": true,
+        "dots_color_scheme": "inverse",
+        "trust_badge_position": "top-right",
+        "trust_badge_size": "medium",
+        "mobile_padding_top": 20,
+        "mobile_padding_bottom": 20,
+        "desktop_padding_top": 36,
+        "desktop_padding_bottom": 36
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "blocks": {
+        "heading_Cy6Erz": {
+          "type": "heading",
+          "settings": {
+            "heading": "Stay in touch",
+            "heading_size": "h2"
+          }
+        },
+        "paragraph_e8HHyB": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>Be the first to know about new collections and exclusive offers.</p>"
+          }
+        },
+        "email_form_np7LAV": {
+          "type": "email_form",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "heading_Cy6Erz",
+        "paragraph_e8HHyB",
+        "email_form_np7LAV"
+      ],
+      "name": "t:sections.newsletter.presets.name",
+      "settings": {
+        "visibility": "always-display",
+        "button_type": "solid",
+        "button_label": "Subscribe",
+        "button_style_secondary": false,
+        "color_scheme": "background-2",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52,
+        "custom_colors_background": "#ffffff",
+        "custom_gradient_background": "",
+        "custom_colors_text": "#2e2a39",
+        "custom_colors_solid_button_background": "#dd1d1d",
+        "custom_colors_solid_button_text": "#ffffff"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "logo_list",
+    "benefit_ticker",
+    "featured_collection",
+    "trust_bar",
+    "social_proof",
+    "ugc_scroller",
+    "benefits_grid",
+    "featured_product",
+    "newsletter"
+  ]
+}
