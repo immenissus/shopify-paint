@@ -1,0 +1,92 @@
+/* Discount Sticker — circular badge with SVG ribbon text
+ * Loaded once site-wide. Positioning and colors are driven by CSS custom
+ * properties injected as inline styles from the snippet markup.
+ */
+
+.discount-sticker-wrapper {
+  position: absolute;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--ds-bg, #542078);
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.discount-sticker-svg {
+  display: block;
+  width: var(--ds-size, 120px);
+  height: var(--ds-size, 120px);
+}
+
+/* Ribbon ring drawn as a stroked circle */
+.discount-sticker-ring {
+  fill: none;
+}
+
+/* Ring text on the circular path */
+.discount-sticker-ring-text {
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+}
+
+/* Centered label text (UP TO / 60% / OFF) */
+.discount-sticker-label {
+  text-transform: uppercase;
+  text-anchor: middle;
+}
+
+.discount-sticker-label--sub {
+  letter-spacing: 0.1em;
+}
+
+/* Position modifiers — offsets come from --ds-top/right/bottom/left */
+.discount-sticker-position--top-right {
+  top: var(--ds-top, 20px);
+  right: var(--ds-right, 20px);
+  bottom: auto;
+  left: auto;
+}
+
+.discount-sticker-position--top-left {
+  top: var(--ds-top, 20px);
+  right: auto;
+  bottom: auto;
+  left: var(--ds-left, 20px);
+}
+
+.discount-sticker-position--bottom-right {
+  top: auto;
+  right: var(--ds-right, 20px);
+  bottom: var(--ds-bottom, 20px);
+  left: auto;
+}
+
+.discount-sticker-position--bottom-left {
+  top: auto;
+  right: auto;
+  bottom: var(--ds-bottom, 20px);
+  left: var(--ds-left, 20px);
+}
+
+/* Rotation */
+.discount-sticker-wrapper {
+  transform: rotate(var(--ds-rotate, 0deg));
+}
+
+/* Mobile scaling — matches Shrine/Dawn standard breakpoint */
+@media screen and (max-width: 749px) {
+  .discount-sticker-svg {
+    width: var(--ds-size-mobile, 95px);
+    height: var(--ds-size-mobile, 95px);
+  }
+}
+
+/* Guarantee a positioned ancestor so the badge overlays the image correctly */
+.card__media,
+.product__media-wrapper,
+.product-card {
+  position: relative;
+}

@@ -1,0 +1,159 @@
+{%- comment -%}
+  Discount Sticker - section wrapper.
+  Use ONCE on the product page (PDP). Place it inside a positioned ancestor
+  (e.g. the media wrapper) so the absolutely-positioned badge overlays the
+  image. For collection/product-card grids render the snippet directly:
+    {% render 'discount-sticker', product: card_product %}
+{%- endcomment -%}
+
+{%- if product != blank -%}
+  {%- render 'discount-sticker',
+    product: product,
+    position: section.settings.position,
+    size: section.settings.size,
+    size_mobile: section.settings.size_mobile,
+    top: section.settings.top_offset,
+    right: section.settings.right_offset,
+    bottom: section.settings.bottom_offset,
+    left: section.settings.left_offset,
+    rotation: section.settings.rotation,
+    background_color: section.settings.background_color,
+    text_color: section.settings.text_color,
+    subtitle: section.settings.subtitle,
+    discount_text: section.settings.discount_text,
+    bottom_text: section.settings.bottom_text,
+    ribbon_text: section.settings.ribbon_text
+  -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Discount Sticker",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Discount Sticker"
+    },
+    {
+      "type": "select",
+      "id": "position",
+      "label": "Position",
+      "default": "top-right",
+      "options": [
+        { "value": "top-right", "label": "Top right" },
+        { "value": "top-left", "label": "Top left" },
+        { "value": "bottom-right", "label": "Bottom right" },
+        { "value": "bottom-left", "label": "Bottom left" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "size",
+      "label": "Size (desktop)",
+      "min": 80,
+      "max": 180,
+      "step": 2,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "size_mobile",
+      "label": "Size (mobile)",
+      "min": 60,
+      "max": 140,
+      "step": 2,
+      "unit": "px",
+      "default": 95
+    },
+    {
+      "type": "range",
+      "id": "top_offset",
+      "label": "Top offset",
+      "min": 0,
+      "max": 100,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "right_offset",
+      "label": "Right offset",
+      "min": 0,
+      "max": 100,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "bottom_offset",
+      "label": "Bottom offset",
+      "min": 0,
+      "max": 100,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "left_offset",
+      "label": "Left offset",
+      "min": 0,
+      "max": 100,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "rotation",
+      "label": "Rotation",
+      "min": -45,
+      "max": 45,
+      "unit": "deg",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#542078"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Top text",
+      "default": "UP TO"
+    },
+    {
+      "type": "text",
+      "id": "discount_text",
+      "label": "Discount value",
+      "default": "60%"
+    },
+    {
+      "type": "text",
+      "id": "bottom_text",
+      "label": "Bottom text",
+      "default": "OFF"
+    },
+    {
+      "type": "text",
+      "id": "ribbon_text",
+      "label": "Circular ribbon text",
+      "default": "LIMITED TIME"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Discount Sticker"
+    }
+  ]
+}
+{% endschema %}

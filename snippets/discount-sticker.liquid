@@ -1,0 +1,58 @@
+{%- comment -%}
+  Discount Sticker - circular badge with SVG ribbon text.
+  Renders only when the product carries the configured tag, or when the
+  metafield custom.discount_sticker is set to true.
+  Value resolution order: render arguments > theme settings > defaults.
+{%- endcomment -%}
+
+{%- liquid
+  assign ds_show = false
+
+  if product != blank
+    assign ds_tag = settings.discount_sticker_tag | default: 'discount'
+    if product.tags contains ds_tag
+      assign ds_show = true
+    elsif product.metafields.custom.discount_sticker == true
+      assign ds_show = true
+    endif
+  endif
+-%}
+
+{%- if ds_show -%}
+  {%- liquid
+    assign ds_size = size | default: settings.discount_sticker_size | default: 120
+    assign ds_size_mobile = size_mobile | default: 95
+    assign ds_position = position | default: settings.discount_sticker_position | default: 'top-right'
+    assign ds_top = top | default: settings.discount_sticker_top_offset | default: 20
+    assign ds_right = right | default: settings.discount_sticker_right_offset | default: 20
+    assign ds_bottom = bottom | default: settings.discount_sticker_bottom_offset | default: 20
+    assign ds_left = left | default: settings.discount_sticker_left_offset | default: 20
+    assign ds_rotate = rotation | default: settings.discount_sticker_rotation | default: 0
+    assign ds_bg = background_color | default: settings.discount_sticker_background_color | default: '#542078'
+    assign ds_color = text_color | default: settings.discount_sticker_text_color | default: '#ffffff'
+    assign ds_subtitle = subtitle | default: settings.discount_sticker_subtitle | default: 'UP TO'
+    assign ds_discount = discount_text | default: settings.discount_sticker_discount_text | default: '60%'
+    assign ds_bottom_text = bottom_text | default: settings.discount_sticker_bottom_text | default: 'OFF'
+    assign ds_ribbon = ribbon_text | default: settings.discount_sticker_ribbon_text | default: 'LIMITED TIME'
+    assign ds_uid = 'ds-' | append: product.id
+  -%}
+
+  <div
+    class="discount-sticker-wrapper discount-sticker-position--{{ ds_position }}"
+    style="--ds-size: {{ ds_size }}px; --ds-size-mobile: {{ ds_size_mobile }}px; --ds-top: {{ ds_top }}px; --ds-right: {{ ds_right }}px; --ds-bottom: {{ ds_bottom }}px; --ds-left: {{ ds_left }}px; --ds-rotate: {{ ds_rotate }}deg; --ds-bg: {{ ds_bg }}; --ds-text: {{ ds_color }};"
+  >
+    <svg class="discount-sticker-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <defs>
+        <path id="{{ ds_uid }}-ring" d="M 50,6 a 44,44 0 1 1 -0.01,0"></path>
+      </defs>
+      <circle cx="50" cy="50" r="44" fill="{{ ds_bg }}"></circle>
+      <circle cx="50" cy="50" r="43" fill="none" stroke="{{ ds_color }}" stroke-opacity="0.55" stroke-width="1"></circle>
+      <text class="discount-sticker-ring-text" fill="{{ ds_color }}" font-size="7.5">
+        <textPath href="#{{ ds_uid }}-ring" startOffset="0%" text-anchor="middle">{{ ds_ribbon }} &bull; {{ ds_ribbon }}</textPath>
+      </text>
+      <text class="discount-sticker-label discount-sticker-label--sub" x="50" y="46" fill="{{ ds_color }}" font-size="6.5">{{ ds_subtitle }}</text>
+      <text class="discount-sticker-label" x="50" y="58" fill="{{ ds_color }}" font-size="13" font-weight="700">{{ ds_discount }}</text>
+      <text class="discount-sticker-label discount-sticker-label--sub" x="50" y="69" fill="{{ ds_color }}" font-size="6.5">{{ ds_bottom_text }}</text>
+    </svg>
+  </div>
+{%- endif -%}

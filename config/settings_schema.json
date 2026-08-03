@@ -2287,5 +2287,123 @@
         "default": "+ Add"
       }
     ]
+  },
+  {
+    "name": "Discount Sticker",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Discount Sticker"
+      },
+      {
+        "type": "text",
+        "id": "discount_sticker_tag",
+        "label": "Required product tag",
+        "default": "discount"
+      },
+      {
+        "type": "select",
+        "id": "discount_sticker_position",
+        "label": "Position",
+        "default": "top-right",
+        "options": [
+          { "value": "top-right", "label": "Top right" },
+          { "value": "top-left", "label": "Top left" },
+          { "value": "bottom-right", "label": "Bottom right" },
+          { "value": "bottom-left", "label": "Bottom left" }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "discount_sticker_size",
+        "label": "Size (desktop)",
+        "min": 80,
+        "max": 180,
+        "step": 2,
+        "unit": "px",
+        "default": 120
+      },
+      {
+        "type": "range",
+        "id": "discount_sticker_top_offset",
+        "label": "Top offset",
+        "min": 0,
+        "max": 100,
+        "unit": "px",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "discount_sticker_right_offset",
+        "label": "Right offset",
+        "min": 0,
+        "max": 100,
+        "unit": "px",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "discount_sticker_bottom_offset",
+        "label": "Bottom offset",
+        "min": 0,
+        "max": 100,
+        "unit": "px",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "discount_sticker_left_offset",
+        "label": "Left offset",
+        "min": 0,
+        "max": 100,
+        "unit": "px",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "discount_sticker_rotation",
+        "label": "Rotation",
+        "min": -45,
+        "max": 45,
+        "unit": "deg",
+        "default": 0
+      },
+      {
+        "type": "color",
+        "id": "discount_sticker_background_color",
+        "label": "Background color",
+        "default": "#542078"
+      },
+      {
+        "type": "color",
+        "id": "discount_sticker_text_color",
+        "label": "Text color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "text",
+        "id": "discount_sticker_subtitle",
+        "label": "Top text",
+        "default": "UP TO"
+      },
+      {
+        "type": "text",
+        "id": "discount_sticker_discount_text",
+        "label": "Discount value",
+        "default": "60%"
+      },
+      {
+        "type": "text",
+        "id": "discount_sticker_bottom_text",
+        "label": "Bottom text",
+        "default": "OFF"
+      },
+      {
+        "type": "text",
+        "id": "discount_sticker_ribbon_text",
+        "label": "Circular ribbon text",
+        "default": "LIMITED TIME"
+      }
+    ]
   }
 ]
