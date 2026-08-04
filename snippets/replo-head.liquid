@@ -1,0 +1,34 @@
+{% if request.page_type == 'page' and page.metafields.replo.page_featured_image != blank %}
+  <meta property="og:image" content="{{ page.metafields.replo.page_featured_image }}">
+  <meta property="og:image:secure_url" content="{{ page.metafields.replo.page_featured_image }}">
+  <meta property="twitter:image" content="{{ page.metafields.replo.page_featured_image }}">
+{% endif %}
+
+{% liquid
+  assign request_object = nil
+
+  case request.page_type
+    when 'page'
+      assign request_object = page
+    when 'product'
+      assign request_object = product
+    when 'collection'
+      assign request_object = collection
+    when 'article'
+      assign request_object = article
+    when 'blog'
+      assign request_object = blog
+    when 'index'
+      assign request_object = shop
+  endcase
+%}
+
+{% if request_object %}
+  {% if request_object.metafields.replo.before_head_end_content != blank %}
+    {{ request_object.metafields.replo.before_head_end_content }}
+  {% endif %}
+
+  {% if request_object.metafields.replo.before_head_end_styles != blank %}
+    {{ request_object.metafields.replo.before_head_end_styles }}
+  {% endif %}
+{% endif %}
